@@ -1,42 +1,37 @@
 window.onload = function() {
-	var canvas = document.getElementById("canvas"),
-		context = canvas.getContext("2d"),
-		width = canvas.width = window.innerWidth,
-		height = canvas.height = window.innerHeight,
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	var width = canvas.width = window.innerWidth;
+	var height = canvas.height = window.innerHeight;
 
-		values = [7, 5, 21, 18, 33, 12, 27, 18, 9, 23, 14, 6, 31, 25, 17, 13, 29],
-		min = Math.min.apply(null, values),
-		max = Math.max.apply(null, values);
+    var LEDcount = 8;
 
-	function norm(value, min, max) {
-		return (value - min) / (max - min);
-	}
+    ctx.lineWidth="2";
+    ctx.rect(width/4, height/4, width/2, height/2);
+    ctx.stroke();
 
-	context.beginPath();
+    ctx.lineWidth="1";
+    for(var i=0; i<LEDcount; i++)
+    {
+        ctx.rect(width/4, height/LEDcount, width/2, height/LEDcount);
+        ctx.stroke();
+    }
 
-	for(var i = 0; i < values.length; i += 1) {
-		var normValue = norm(values[i], min, max),
-			x = width / (values.length - 1) * i,
-			y = height - height * normValue;
 
-		if(i == 0) {
-			context.moveTo(x, y);
-		}
-		else {
-			context.lineTo(x, y);
-		}
-	}
+/*
+    // Red rectangle
+    ctx.beginPath();
+    ctx.lineWidth="6";
+    ctx.strokeStyle="red";
+    ctx.rect(5,5,290,140);
+    ctx.stroke();
 
-	context.stroke();
+// Green rectangle
+    ctx.beginPath();
+    ctx.lineWidth="4";
+    ctx.strokeStyle="green";
+    ctx.rect(30,30,50,50);
+    ctx.stroke();
+*/
 
-	// bonus material! you can also plot the points
-
-	for(var i = 0; i < values.length; i += 1) {
-		var normValue = norm(values[i], min, max),
-			x = width / (values.length - 1) * i,
-			y = height - height * normValue;
-		context.beginPath();
-		context.arc(x, y, 4, 0, Math.PI * 2, false);
-		context.fill();
-	}
 };
